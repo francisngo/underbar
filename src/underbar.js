@@ -106,7 +106,21 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
+  _.uniq = function(array, isSorted, iterator) {
+    var hash = {};
+    iterator = (isSorted && iterator) || _.identity;
+
+    _.each(array, function(item) {
+      var transform = iterator(item);
+      if (hash[transform] === undefined) {
+        hash[transform] = item;
+      }
+    });
+
+    return _.map(hash, function(item) {
+      return item;
+    });
+
   };
 
 
