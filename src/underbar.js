@@ -214,6 +214,22 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    // provide default iterator if not given one
+    iterator = iterator || _.identity;
+
+    // start with a truthy variable
+    var allElementMatch = true;
+
+    // iterate through collection, for each item,
+    _.each(collection, function(item) {
+      // assign truthy to itself and the Boolean value of item after iterator
+      allElementMatch = allElementMatch && Boolean(iterator(item));
+    });
+
+    // truthy variable has to match; if it doesn't return false, if it does return true;
+    // example: allElementMatch (true) && Boolean(iterator(item)) (false) === false
+    // example: allElementMatch (true) && Boolean(iterator(item)) (true) === true
+    return allElementMatch;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
