@@ -269,6 +269,32 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    // accepts x amount of args
+    // ES2015: Array.from(arguments) will grab all the args
+    // Array.prototype.slice.call(arguments) also grabs all the args but we want to skip first one
+    // use Array.prototype.slice.call(arguments, 1) to slice off first arg
+
+    /*
+    function collectArgs(obj1, obj2, obj3, obj4) {
+      var args = Array.prototype.slice.call(arguments);
+      return args;
+    }
+    collectArgs(1, 2, 3, 4); => [1, 2, 3, 4]
+
+    function collectArgs(obj1) {
+      var args = Array.prototype.slice.call(arguments, 1);
+      return args;
+    }
+    collectArgs(1, 2, 3, 4); => [2, 3, 4]
+    */
+
+    var args = Array.prototype.slice.call(arguments, 1);
+    _.each(args, function(object) {
+      _.each(object, function(prop, key) {
+        obj[key] = prop;
+      });
+    });
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
