@@ -178,6 +178,24 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    // check for accumulator
+    var noAccumulator = arguments.length === 2;
+
+    // iterate through collection
+    _.each(collection, function(item) {
+      // if accumulator does not exist
+      if (noAccumulator) {
+        // set accumulator to false
+        noAccumulator = false;
+        // set first item of collection as accumulator
+        accumulator = item;
+      } else {
+        // set accumulator to result of iterator function with accumulator and item applied
+        accumulator = iterator(accumulator, item);
+      }
+    });
+    // return accumulator
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
