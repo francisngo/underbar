@@ -101,7 +101,29 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    // var unique = [];
+    // _.each(array, function(item) {
+    //   if (_.indexOf(unique, item) === -1) {
+    //     unique.push(item);
+    //   }
+    // });
+    // return unique;
 
+    var hash = {};
+    var unique = [];
+    iterator = (isSorted && iterator) || _.identity;
+
+    _.each(array, function(item) {
+      var transformed = iterator(item);
+      if (hash[transformed] === undefined) {
+        hash[transformed] = item;
+      }
+    });
+    console.log(hash);
+    _.each(hash, function(value) {
+      unique.push(value);
+    });
+    return unique;
   };
 
 
