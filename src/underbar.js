@@ -361,9 +361,15 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    var memo = {};
+    let memo = {};
     return function() {
-      var serialization = JSON.stringify(arguments);
+      let serialization = JSON.stringify(arguments);
+      /*
+      memo = {
+        {"0": 1, "1": 2} : 3,
+        {"0": 3, "1": 4} : 7
+      };
+      */
       return memo[serialization] = memo[serialization] || func.apply(this, arguments);
     };
   };
