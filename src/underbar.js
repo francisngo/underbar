@@ -341,6 +341,15 @@
       // The new function always returns the originally computed result.
       return result;
     };
+
+    /*
+    w/ ES6 arrow functions
+    const once = (func) => {
+      let alreadyCalled = false;
+      let result;
+      return (...args) => !alreadyCalled ? (alreadyCalled = true, result = func(...args)) : result;
+    }
+    */
   };
 
   // Memorize an expensive function's results by storing them. You may assume
