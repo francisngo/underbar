@@ -341,6 +341,15 @@
       // The new function always returns the originally computed result.
       return result;
     };
+
+    /*
+    w/ ES6 arrow functions
+    const once = (func) => {
+      let alreadyCalled = false;
+      let result;
+      return (...args) => !alreadyCalled ? (alreadyCalled = true, result = func(...args)) : result;
+    }
+    */
   };
 
   // Memorize an expensive function's results by storing them. You may assume
@@ -352,6 +361,17 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    let memo = {};
+    return function() {
+      let serialization = JSON.stringify(arguments);
+      /*
+      memo = {
+        {"0": 1, "1": 2} : 3,
+        {"0": 3, "1": 4} : 7
+      };
+      */
+      return memo[serialization] = memo[serialization] || func.apply(this, arguments);
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
