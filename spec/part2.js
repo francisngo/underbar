@@ -410,7 +410,7 @@
         expect(memoAdd(1, 2)).to.equal(3);
       });
 
-      it.only('should give different results for different arguments', function() {
+      it('should give different results for different arguments', function() {
         expect(memoAdd(1, 2)).to.equal(3);
         expect(memoAdd(3, 4)).to.equal(7);
         expect(memoAdd(1, 3)).to.equal(4);
