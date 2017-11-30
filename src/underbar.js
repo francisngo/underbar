@@ -399,6 +399,16 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var sorted = array.slice();
+    var remaining = sorted.length;
+    var temp, current;
+    while (remaining) {
+      current = Math.floor(Math.random() * remaining--);
+      temp = sorted[remaining];
+      sorted[remaining] = sorted[current];
+      sorted[current] = temp;
+    }
+    return sorted;
   };
 
 
