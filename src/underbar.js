@@ -398,7 +398,27 @@
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
+
+  // idea is to use the back of the array to store the shuffled elements, and the front of the array to store the remaining elements. pick random remaining element (from the front) and place in its new location (in the back). The unshuffled element in the back gets swapped to the front where it waits for subsequent shuffling.
+  
   _.shuffle = function(array) {
+    // make a copy of the given array
+    var sorted = array.slice();
+    // retrieve the length of new array
+    var remaining = sorted.length;
+    // create the temp and current variable to hold elements while swapping
+    var temp, current;
+    // while the remaining is left
+    while (remaining) {
+      // assign current to a random element
+      // decrement each time current gets reassigned to a random element
+      // swap the last element with the current element
+      current = Math.floor(Math.random() * remaining--);
+      temp = sorted[remaining];
+      sorted[remaining] = sorted[current];
+      sorted[current] = temp;
+    }
+    return sorted;
   };
 
 
@@ -413,6 +433,9 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    return _.map(collection, function(item) {
+      return functionOrKey(item);
+    });
   };
 
   // Sort the object's values by a criterion produced by an iterator.
