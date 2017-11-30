@@ -458,7 +458,35 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    // NOTE: iterator is a string, check to see if string
+    // assign string iterator to a variable to use later
+    // assign the given iterator to a function that accepts an item
+
+    // check to see if iterator is a string
+    // retrieve the iterator
+    // assign the iterator a function that accepts the item
+    // return the item's iterator property
+    // sort the collection using the iterator in ascending order
+
+    if (typeof iterator === 'string') {
+      var iter = iterator;
+      iterator = function(item) {
+        return item[iter];
+      };
+    }
+
+    return collection.sort(function(a, b) {
+      return iterator(a) - iterator(b);
+    });
   };
+
+  /*
+    var people = [{name: 'curly', age: 50}, {name: 'moe', age: 30}];
+    var sortedByAge = _.sortBy(people, function(person) {
+      return person.age;
+    });
+
+  */
 
   // Zip together two or more arrays with elements of the same index
   // going together.
