@@ -19,7 +19,7 @@
 
     describe('invoke, when provided a function reference', function() {
 
-      it('runs the input function on each item in the array, and returns a list of results', function() {
+      it.only('runs the input function on each item in the array, and returns a list of results', function() {
         var reverse = function() {
           return this.split('').reverse().join('');
         };
