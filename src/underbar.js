@@ -400,7 +400,9 @@
   // http://mdn.io/Array.prototype.slice
 
   // idea is to use the back of the array to store the shuffled elements, and the front of the array to store the remaining elements. pick random remaining element (from the front) and place in its new location (in the back). The unshuffled element in the back gets swapped to the front where it waits for subsequent shuffling.
-  
+
+  // https://bost.ocks.org/mike/shuffle/
+
   _.shuffle = function(array) {
     // make a copy of the given array
     var sorted = array.slice();
@@ -432,11 +434,24 @@
 
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
-  _.invoke = function(collection, functionOrKey, args) {
+
+  // MDN => The apply() method calls a function with a given this value, and arguments provided as an array(or an array-like object).
+  _.invoke = function(collection, functionOrKey) {
     return _.map(collection, function(item) {
-      return functionOrKey(item);
+      // if typeof functionOrKey is a string then item[functionOrKey]
+      // otherwise use functionOrKey
+      var method = typeof functionOrKey === 'string' ? item[functionOrKey] : functionOrKey;
+      // apply the method to the item
+      return method.apply(item);
     });
   };
+
+  /*
+    _.invoke(['dog', 'cat'], 'toUpperCase'); => ['DOG', 'CAT']
+    'toUpperCase' is a string so 'dog'['toUpperCase']
+    so, var method = 'dog'['toUpperCase'] or 'dog'.toUpperCase
+    then, return method.apply(item) which is 'dog'.toUpperCase.apply('dog') => 'DOG'
+  */
 
   // Sort the object's values by a criterion produced by an iterator.
   // If iterator is a string, sort objects by that property with the name
